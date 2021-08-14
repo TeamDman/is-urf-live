@@ -1,16 +1,13 @@
 import { authenticate, Credentials, request } from "league-connect";
-
-async function getGameModes(credentials: Credentials): Promise<Set<string>> {
+import { writeFileSync } from "fs";
+async function getGameModes(credentials: Credentials): Promise<Array<any>> {
     console.log(`Fetching gamemodes`);
     const response = await request({
         method: "GET",
         url: "/lol-game-queues/v1/queues",
     }, credentials);
     const body = await response.json();
-    let gamemodes = body
-        .filter(x => x.queueAvailability === "Available")
-        .map(x => x.gameMode);
-    gamemodes = new Set(gamemodes);
+    let gamemodes = body.filter(x => x.queueAvailability === "Available");
     return gamemodes;
 }
 
@@ -31,7 +28,11 @@ async function main() {
         try {
             const gameModes = await getGameModes(credentials);
             console.dir(gameModes);
-            process.exit(gameModes.has("URF") ? 0 : 1);
+            writeFileSync("./gamemodes.json", JSON.stringify({
+                dateGenerated: new Date(),
+                gameModes: gameModes.map(x => ({id: x.gameMode, name: x.name}))
+            }, null, 4));
+            process.exit(gameModes.some(x => x.gameMode === "URF") ? 0 : 1);
         } catch (e) {
             console.log(e);
             await sleep(1000);

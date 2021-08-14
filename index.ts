@@ -26,7 +26,7 @@ async function main() {
         awaitConnection: true,
         pollInterval: 5000
     });
-    for(let attempt=0; attempt<20; attempt++) {
+    for(let attempt=0; attempt<500; attempt++) {
         console.log(`Attempt ${attempt}`);
         try {
             const gameModes = await getGameModes(credentials);

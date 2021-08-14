@@ -14,3 +14,6 @@ Stop-Process -Name LeagueClient;
 if ($isUrfLive) {
     .\urf.mp3;
 }
+
+Write-Host -NoNewLine 'Press any key to continue...';
+$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');

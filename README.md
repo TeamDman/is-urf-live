@@ -16,7 +16,7 @@ Scripts for using the League Client Update (LCU) API to check available gamemode
     - Storage account params only necessary for upload stage
 1. Run [`1-launch.ps1`](./1-launch.ps1)
 
-The script will launch the league client, get the list of current gamemodes, write it to a file, and play music if URF is available.
+The script will launch the league client, get the list of current gamemodes, write it to a file, play music if URF is available, and uploads the JSON to an Azure storage account.
 
 ## Useful Links
 

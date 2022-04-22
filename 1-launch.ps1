@@ -16,10 +16,6 @@ ts-node .\app\index.ts;
 # If the script exits with 0, then URF is in the list of gamemodes
 $isUrfLive=$?;
 
-# Close the league client
-Stop-Process $riotClient;
-Stop-Process -Name LeagueClient;
-
 # Play the urf mp3 if it's available.
 if ($isUrfLive) {
     .\resources\urf.mp3;
@@ -29,5 +25,9 @@ if ($isUrfLive) {
 .\2-upload.ps1;
 
 # Wait for user acknowledgement before closing dialog
-# Write-Host -NoNewLine 'Press any key to continue...';
-# $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+Write-Host -NoNewLine 'Press any key to continue...';
+$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+
+# Close the league client
+Stop-Process $riotClient;
+Stop-Process -Name LeagueClient;
